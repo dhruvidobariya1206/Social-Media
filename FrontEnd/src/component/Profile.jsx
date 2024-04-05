@@ -149,19 +149,13 @@ const clickfollow  = ()=> {
                      <div className="d-flex flex-column  col-5">
 
                 {value.user.followers.map((pers, idx) => {
+                  console.log("innn", value.user.followers);
                   return(
                       <>
                           
-                          <div onClick={()=>{window.location.href="/user/"+pers._id}} className="d-flex align-items-center p-2  mb-3 rounded p-3 hover">
-                            <div>
-                              <img
-                                src={pers.image}
-                                alt="profile"
-                                style={{ width: 50 ,height:50}}
-                                className="me-3 rounded"
-                              />
-                            </div>
-                            <h6 className=" fw-bold">{pers.name}</h6>
+                          <div onClick={()=>{window.location.href="/user/"+pers}} className="d-flex align-items-center p-2  mb-3 rounded p-3 hover">
+                            
+                            <h6 className=" fw-bold">{pers}</h6>
                             <i className="fa-solid fa-ellipsis ms-auto fs-4" />
                           </div>
                       </>
