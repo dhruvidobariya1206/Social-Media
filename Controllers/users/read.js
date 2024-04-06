@@ -7,13 +7,11 @@ const read = async (req, res, next) => {
   const user = await User.findById(id);
 
   const followersData = await Promise.all(user.followers.map(async (followerId) => {
-    const follower = await User.findById(followerId);
-    return { [followerId]: follower };
+    return await User.findById(followerId);
   }));
 
   const followingData = await Promise.all(user.following.map(async (followerId) => {
-    const follower = await User.findById(followerId);
-    return { [followerId]: follower };
+    return await User.findById(followerId);
   }));
   const userDataWithFollowers = {
     ...user.toObject(), // Convert user to plain JavaScript object

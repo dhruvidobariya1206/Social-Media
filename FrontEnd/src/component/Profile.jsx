@@ -22,21 +22,21 @@ const Profile = () => {
   const nav = useNavigate();
 
   const [value, SetValues] = useState({
-    user: { following: [], followers: [] },
+    user: { following: [], followers: [], followersData: [], followingData: [] },
     following: false,
   });
 
   const [posts, setPosts] = useState([]);
-  const [user, setUser] = useState([]);
   // const [followers, setFollowers] = useState([]);
   const jwt = auth.isAuthenticated();
   const user1 = jwt1(jwt.token);
 
   useEffect(() => {
     read({ userId: params.id }, { t: jwt.token }).then((res) => {
-      setUser(res);
+      
       if (res.name) {
         let following = checkFollow(res, user1.id);
+        console.log('res',res);
         SetValues({ ...value, user: res, following: following });
         loadPost(res._id);
         // getFollowers(res._id);
@@ -80,7 +80,8 @@ const Profile = () => {
   };
   console.log("posts", posts);
   // console.log(('followers', followers));
-  console.log('user',user);
+  console.log('value',value);
+  console.log('followersData', value.user.followersData);
 
   return (
     <div>
@@ -224,22 +225,32 @@ const Profile = () => {
             >
               <section className="d-flex justify-content-around mt-4">
                 <div className="d-flex flex-column  col-5">
-                  {value.user.followers.map((pers, idx) => {
-                    console.log("innn", value.user.followers);
+                  {
+                    value.user.followersData.map((follower, index) => {
+                    console.log('follower',follower);
                     return (
                       <>
                         <div
                           onClick={() => {
-                            window.location.href = "/user/" + pers;
+                            window.location.href = "/user/" + follower._id;
                           }}
                           className="d-flex align-items-center p-2  mb-3 rounded p-3 hover"
                         >
-                          <h6 className=" fw-bold">{pers}</h6>
+                          <div>
+                            <img
+                                src={(follower.image)}
+                                alt="profile"
+                                style={{ width: 50 ,height:50}}
+                                className="me-3 rounded"
+                              />
+                          </div>
+                          <h6 className=" fw-bold">{follower.name}</h6>
                           <i className="fa-solid fa-ellipsis ms-auto fs-4" />
                         </div>
                       </>
                     );
-                  })}
+                  })
+                  }
                 </div>
               </section>
             </div>
@@ -252,24 +263,24 @@ const Profile = () => {
             >
               <section className="d-flex justify-content-around mt-4">
                 <div className="d-flex flex-column  col-5">
-                  {value.user.following.map((pers, idx) => {
+                  {value.user.followingData.map((following, idx) => {
                     return (
                       <>
                         <div
                           onClick={() => {
-                            window.location.href = "/user/" + pers;
+                            window.location.href = "/user/" + following._id;
                           }}
                           className="d-flex align-items-center p-2  mb-3 rounded p-3 hover"
                         >
                           <div>
-                            {/* <img
-                                src={(pers.image)}
+                            <img
+                                src={(following.image)}
                                 alt="profile"
                                 style={{ width: 50 ,height:50}}
                                 className="me-3 rounded"
-                              /> */}
+                              />
                           </div>
-                          <h6 className=" fw-bold">{pers}</h6>
+                          <h6 className=" fw-bold">{following.name}</h6>
                           <i className="fa-solid fa-ellipsis ms-auto fs-4" />
                         </div>
                       </>
