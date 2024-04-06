@@ -27,8 +27,12 @@ const Profile = () => {
   });
 
   const [posts, setPosts] = useState([]);
+  // const [followers, setFollowers] = useState([]);
   const jwt = auth.isAuthenticated();
   const user1 = jwt1(jwt.token);
+
+  
+  
 
   useEffect(() => {
     read({ userId: params.id }, { t: jwt.token }).then((res) => {
@@ -36,6 +40,7 @@ const Profile = () => {
         let following = checkFollow(res, user1.id);
         SetValues({ ...value, user: res, following: following });
         loadPost(res._id);
+        // getFollowers(res._id);
       }
     });
   }, [user1.id]);
@@ -49,9 +54,12 @@ const Profile = () => {
       }
     ).then((data) => setPosts(data));
   };
+  // const getFollowers = (user) => {
+  //   read(user).then((data) => setFollowers(data));
+  // }
 const clickfollow  = ()=> {
 
-      let callApi = value.following==false ? follow : unfollow
+      let callApi = value.following===false ? follow : unfollow
        callApi({userId : user1.id} ,
         {t:jwt.token},
            value.user._id
@@ -69,7 +77,8 @@ const clickfollow  = ()=> {
           }
         })
    }
-  console.log(posts);
+  console.log('posts',posts);
+  // console.log(('followers', followers));
   console.log(value);
   return (
 <div>
@@ -180,16 +189,16 @@ const clickfollow  = ()=> {
                   return(
                       <>
                          
-                     <div onClick={()=>{window.location.href="/user/"+pers._id}} className="d-flex align-items-center p-2  mb-3 rounded p-3 hover">
+                     <div onClick={()=>{window.location.href="/user/"+pers}} className="d-flex align-items-center p-2  mb-3 rounded p-3 hover">
                             <div>
-                              <img
+                              {/* <img
                                 src={(pers.image)}
                                 alt="profile"
                                 style={{ width: 50 ,height:50}}
                                 className="me-3 rounded"
-                              />
+                              /> */}
                             </div>
-                            <h6 className=" fw-bold">{pers.name}</h6>
+                            <h6 className=" fw-bold">{pers}</h6>
                             <i className="fa-solid fa-ellipsis ms-auto fs-4" />
                           </div>
                       </>

@@ -66,7 +66,7 @@ const PostData = {
   const ImageHander=(pics)=>
   {
      setPicLoading1(true)
-    if (pics.type === "image/jpeg" || pics.type === "image/png") {
+    if (pics.type === "image/jpeg" || pics.type === "image/png" || pics.type === "multipart/form-data") {
       setImage(pics)
       const data = new FormData();
       data.append("file", pics);
