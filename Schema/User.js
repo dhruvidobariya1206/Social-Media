@@ -27,7 +27,8 @@ const userSchema = new Schema({
     default:"https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-541.jpg"
   },
   following: [{type: mongoose.Schema.ObjectId, ref: 'users'}],
-  followers: [{type: mongoose.Schema.ObjectId, ref: 'users'}]
+  followers: [{type: mongoose.Schema.ObjectId, ref: 'users'}],
+  achievements: [{type: mongoose.Schema.ObjectId, ref: 'achievements'}]
 });
 
 const User = mongoose.model("users", userSchema);

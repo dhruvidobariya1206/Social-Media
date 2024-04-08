@@ -1,3 +1,4 @@
+const Achievement = require("../../Schema/Achievement");
 const User = require("../../Schema/User");
 
 const read = async (req, res, next) => {
@@ -13,10 +14,16 @@ const read = async (req, res, next) => {
   const followingData = await Promise.all(user.following.map(async (followerId) => {
     return await User.findById(followerId);
   }));
+
+  const achievementsData = await Promise.all(user.achievements.map(async (AchievementId) => {
+    return await Achievement.findById(AchievementId);
+  }));
+
   const userDataWithFollowers = {
     ...user.toObject(), // Convert user to plain JavaScript object
     followersData: followersData,
     followingData: followingData,
+    achievementsData: achievementsData,
   };
 
   console.log(userDataWithFollowers);

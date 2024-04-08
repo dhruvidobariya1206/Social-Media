@@ -22,7 +22,7 @@ const Profile = () => {
   const nav = useNavigate();
 
   const [value, SetValues] = useState({
-    user: { following: [], followers: [], followersData: [], followingData: [] },
+    user: { following: [], followers: [], followersData: [], followingData: [], achievementsData: [] },
     following: false,
   });
 
@@ -162,15 +162,29 @@ const Profile = () => {
             >
               <button
                 className="nav-link active ms-4"
+                id="pills-achieve-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#pills-achieve"
+                type="button"
+                role="tab"
+                aria-controls="pills-achieve"
+                aria-selected="true"
+              >
+                Achievements
+              </button>
+            </li>
+            <li className="nav-item " role="presentation">
+              <button
+                className="nav-link"
                 id="pills-home-tab"
                 data-bs-toggle="pill"
                 data-bs-target="#pills-home"
                 type="button"
                 role="tab"
                 aria-controls="pills-home"
-                aria-selected="true"
+                aria-selected="false"
               >
-                posts
+                Posts
               </button>
             </li>
             <li className="nav-item " role="presentation">
@@ -184,7 +198,7 @@ const Profile = () => {
                 aria-controls="pills-profile"
                 aria-selected="false"
               >
-                followers
+                Followers
               </button>
             </li>
             <li className="nav-item " role="presentation">
@@ -198,13 +212,35 @@ const Profile = () => {
                 aria-controls="pills-contact"
                 aria-selected="false"
               >
-                following
+                Following
               </button>
             </li>
           </ul>
           <div className="tab-content p-4" id="pills-tabContent">
-            <div
+          <div
               className="tab-pane fade show active"
+              id="pills-achieve"
+              role="tabpanel"
+              aria-labelledby="pills-achieve-tab"
+              tabindex="0"
+            >
+              <div className="left  col-lg-9 col-sm-12  col-sm-12  h-100  border_radius mt-4 m-auto">
+                {value.user.achievementsData.map((achievement) => {
+                  return (
+                    <>
+                      <div
+                        className="d-flex align-items-center p-2  mb-3 rounded p-3 hover"
+                      >
+                        {achievement.title}
+                      </div>
+                    </>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div
+              className="tab-pane fade"
               id="pills-home"
               role="tabpanel"
               aria-labelledby="pills-home-tab"
